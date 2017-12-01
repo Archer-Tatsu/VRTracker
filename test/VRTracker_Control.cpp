@@ -168,9 +168,19 @@ void main(int argc, char** argv)
 		LONG height = rect.bottom - rect.top;
 		if (height<= height_vd)
 		{
-			::SendMessage(hwnd, WM_KEYDOWN, VK_SPACE, NULL);
-			for (i = 0; i < 100; i++);
-			SendMessage(hwnd, WM_KEYUP, VK_SPACE, NULL);
+			//SendMessage(hwnd, WM_KEYDOWN, VK_SPACE, NULL);
+			//for (i = 0; i < 100; i++);
+			//SendMessage(hwnd, WM_KEYUP, VK_SPACE, NULL);
+
+			SetForegroundWindow(hwnd);
+			INPUT input[2];
+			input[0].ki.wVk = VK_SPACE;
+			input[0].type = INPUT_KEYBOARD;
+			input[1].ki.wVk = VK_SPACE;
+			input[1].type = INPUT_KEYBOARD;
+			input[1].ki.dwFlags = KEYEVENTF_KEYUP;
+			SendInput(2, input, sizeof(INPUT));
+
 			std::cout << "Video Loaded. Pause." << endl;
 			break;
 		}
